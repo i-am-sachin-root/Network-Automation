@@ -55,9 +55,9 @@
 
 7. How to Use and Set Up:
 
-1. Save this module as `ip_add_validity.py` (or any name you prefer).
-2. Import the `ip_file_valid` function from `ip_file_validity.py` to get the list of IP addresses.
-3. Call the function `ip_addr_valid(ip_add_list)` with the list of IP addresses you want to validate.
-4. If all IPs are valid, the program continues without printing anything.
-5. If an invalid IP is found, the program exits and displays an error message with the invalid IP.
+- Save this module as `ip_add_validity.py` (or any name you prefer).
+- Import the `ip_file_valid` function from `ip_file_validity.py` to get the list of IP addresses.
+- Call the function `ip_addr_valid(ip_add_list)` with the list of IP addresses you want to validate.
+- If all IPs are valid, the program continues without printing anything.
+- If an invalid IP is found, the program exits and displays an error message with the invalid IP.
 
