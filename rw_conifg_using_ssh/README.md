@@ -2,7 +2,7 @@
 
 # File ip_file_valifity.py--------------------------
 
-# 1. **Checking File Validity:**
+1. **Checking File Validity:**
 - The program prompts the user to enter the path and filename of the IP address file using the `input()` function.
 - The function `os.path.isfile(ip_add_file)` is used to check if the file exists at the provided location.
 - If the file exists, it prints "file is valid". If not, it prints "file is not valid" and exits the program using `sys.exit()`.
@@ -10,15 +10,15 @@
 - The function `os.path.isfile(ip_add_file)` is used to check if the file exists at the provided location.
  - If the file exists, it prints "file is valid". If not, it prints "file is not valid" and exits the program using `sys.exit()`.
 
-# 2. **Reading IP Addresses:**
+2. **Reading IP Addresses:**
  - Once the file is validated, the file is opened in read mode using `with open(ip_add_file, 'r')`.
 - `f.seek(0)` moves the cursor to the beginning of the file.
 - `f.readlines()` reads the content of the file line by line and stores it in the list `ip_add_list`. Each line corresponds to an IP address.
-#
-# 3. **Returning IP Addresses:**
+
+3. **Returning IP Addresses:**
 - The list `ip_add_list`, which now contains all the IP addresses read from the file, is returned by the function.
-#
-# 4. **Test Example:**
+
+4. **Test Example:**
  - You can test this function by calling it and printing the returned list, like so:
     Example usage:
         ip_list = ip_file_valid()
@@ -53,7 +53,7 @@
 
 
 
-### How to Use and Set Up:
+7. How to Use and Set Up:
 
 1. Save this module as `ip_add_validity.py` (or any name you prefer).
 2. Import the `ip_file_valid` function from `ip_file_validity.py` to get the list of IP addresses.
