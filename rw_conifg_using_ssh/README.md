@@ -1,6 +1,7 @@
 # Explanation of how this code works:
 
-#-------------------- File ip_file_valifity.py--------------------------
+# File ip_file_valifity.py--------------------------
+
 # 1. **Checking File Validity:**
 - The program prompts the user to enter the path and filename of the IP address file using the `input()` function.
 - The function `os.path.isfile(ip_add_file)` is used to check if the file exists at the provided location.
@@ -24,7 +25,8 @@
 #      print(ip_list)
 
 
-#------------------------ip_add_validity.py-----------------------
+# ip_add_validity.py-----------------------
+
 ### How It Works:
 
 1. **Function Definition:**
@@ -49,7 +51,7 @@
 6. **Valid IP Handling:**
    - If the IP address is valid, the program continues to the next address without printing anything.
 
----
+
 
 ### How to Use and Set Up:
 
