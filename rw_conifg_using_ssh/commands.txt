@@ -1,2 +1,1 @@
-show ip int br 
-show ver | i uptime
+do sh ver | i uptime

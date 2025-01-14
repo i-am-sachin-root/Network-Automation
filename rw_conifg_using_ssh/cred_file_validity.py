@@ -4,7 +4,9 @@ import sys
 
 def cred_file_valid():
      #take path of the file from user
-        cred_file =  input("\n Enter path and filename of the file which contains username and pass: ")
+        cred_file =  input("\n Enter path and filename of the file which contains username and pass. * press 'q' to quite: ")
+        while cred_file == 'q': 
+                sys.exit()
         if os.path.isfile(cred_file) == True:
                 print("file is valid")
                 return cred_file
