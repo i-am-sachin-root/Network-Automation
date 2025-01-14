@@ -123,3 +123,29 @@ ip_reach(ip_add_list)
 - **Output Suppression:** `subprocess.DEVNULL` prevents console clutter by suppressing command output and errors.
 
 # command_file_valid.py-----------------------
+### **Summary: Checking File Availability for Commands**
+
+The `command_file_valid` function is used to verify the availability of a file that contains commands to be executed on devices. It ensures that the specified file exists at the provided location before proceeding.
+
+#### **How It Works:**
+1. The user is prompted to input the path and filename of the commands file.
+2. The function uses `os.path.isfile()` to check if the specified file exists:
+   - If the file exists:
+     - A message confirms that the file is valid.
+   - If the file does not exist:
+     - A message indicates the file is invalid.
+     - The program terminates using `sys.exit()` to prevent further execution.
+
+#### **Purpose:**
+This function ensures the availability of a valid commands file, which is necessary for executing tasks on devices. It prevents errors that could occur due to missing or incorrect file paths.
+
+#### **Example Usage:**
+```python
+command_file_valid()
+```
+- When invoked, the function prompts the user to input the path of the commands file.
+- It validates the file's existence to ensure subsequent operations can access the required commands.
+
+#### **Key Notes:**
+- **Validation:** The function is critical for avoiding runtime errors by ensuring the presence of a valid file before proceeding.
+- **Error Handling:** If the file is not found, the program exits gracefully with an appropriate error message, prompting the user to correct the issue.
