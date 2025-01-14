@@ -1,6 +1,6 @@
 # Explanation of how this code works:
 
-# File ip_file_valifity.py-----------------------
+# File ip_file_validity.py-----------------------
 
 1. **Checking File Validity:**
 - The program prompts the user to enter the path and filename of the IP address file using the `input()` function.
@@ -26,7 +26,6 @@
 
 
 # ip_add_validity.py-----------------------
-
 ### How It Works:
 
 1. **Function Definition:**
@@ -64,7 +63,6 @@
 
 
 # cred_file_valid.py-----------------------
-
 ### **Summary: Checking File Availability for Login Credentials**
 
 The `cred_file_valid` function is responsible for verifying the availability of a file containing login credentials (username and password) for devices. It ensures that the specified file exists at the given location before proceeding.
