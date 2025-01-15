@@ -168,10 +168,7 @@ command_file_valid()
 
 
 
-
----
-
-### handle_multiple_devices_thread.py-----------------------
+# handle_multiple_devices_thread.py-----------------------
 
 This Python script uses the `threading` module to efficiently handle multiple SSH connections concurrently. The script takes a list of IP addresses and spawns a separate thread for each IP to execute SSH commands on remote devices.
 
