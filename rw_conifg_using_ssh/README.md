@@ -153,7 +153,7 @@ command_file_valid()
 
 # command_file_valid.py-----------------------
 
-# This Python script validates the path of a command file provided by the user.
+### This Python script validates the path of a command file provided by the user.
 
 # Function
 
@@ -165,3 +165,30 @@ command_file_valid()
 - Note
 
       The script allows the user to quit by entering 'q' at the prompt.
+
+
+
+
+---
+
+### handle_multiple_devices_thread.py-----------------------
+
+This Python script uses the `threading` module to efficiently handle multiple SSH connections concurrently. The script takes a list of IP addresses and spawns a separate thread for each IP to execute SSH commands on remote devices.
+
+### Key Components:
+
+1. **`create_threads(ip_add_list, function)`**:
+   - This function takes two arguments: `ip_add_list` (a list of IP addresses) and `function` (the function to execute on each IP).
+   - It loops through the list of IP addresses, creating a thread for each one to run the specified function (typically `ssh_connection`).
+   - Each thread is started immediately and added to a list for tracking.
+   - After starting all threads, the function waits for each thread to complete by calling `join()` on each thread.
+
+2. **Thread Management**:
+   - The script ensures that all SSH connections are handled concurrently, significantly speeding up the process when dealing with multiple devices.
+   - The threads are managed by appending them to a list and joining them at the end to ensure that all operations complete before moving on.
+
+### Usage:
+
+- This script is part of a larger network automation project where multiple remote devices are accessed simultaneously.
+- It is typically used to execute SSH commands on multiple devices concurrently by creating threads for each device.
+

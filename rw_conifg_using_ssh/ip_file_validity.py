@@ -5,7 +5,9 @@ import sys
 def ip_file_valid():
 
         #take path of the file from user
-        ip_add_file =  input("\n Enter path and filename of the file which contains IP addresses: ")
+        ip_add_file =  input("\n Enter path and filename of the file which contains ip addresses. * press 'q' to quite: ")
+        while ip_file_valid == 'q':
+                sys.exit()
         if os.path.isfile(ip_add_file) == True:
                 print("file is valid")
         else:
@@ -20,4 +22,4 @@ def ip_file_valid():
                return ip_add_list
 
 # test :- file working as intetended 
-ip_file_valid()
+#ip_file_valid()

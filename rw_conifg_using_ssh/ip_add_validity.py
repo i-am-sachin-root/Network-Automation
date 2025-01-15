@@ -1,9 +1,11 @@
 import sys
+import os.path
 #from ip_file_validity import ip_file_valid
 #ip_add_list = ["192.168.0\n"] test address
 #Checking octets
 def ip_addr_valid(ip_add_list): #we will take list of ip addresses       
- 
+    
+    
     for ip in ip_add_list: # go throgh ip add which will be like ["192.168.0.1\n"] list of strings
         ip = ip.rstrip("\n") # remove \n from end of ip add, this \n will be added by readlines() method
         octet_list = ip.split('.') #this will split ip add into list denominated by '.' so list will look like ['192', '168', '0', '1']
