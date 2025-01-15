@@ -189,3 +189,62 @@ This Python script uses the `threading` module to efficiently handle multiple SS
 - This script is part of a larger network automation project where multiple remote devices are accessed simultaneously.
 - It is typically used to execute SSH commands on multiple devices concurrently by creating threads for each device.
 
+
+
+Here’s a summary for your `README.md` file for the `main.py` script:
+
+---
+
+# main.py-----------------------
+
+This Python script automates SSH configurations on multiple devices by validating IP addresses, checking their reachability, and executing commands via SSH. It integrates several helper functions to ensure smooth execution and handles multiple devices concurrently using threading.
+
+### Key Features:
+1. **IP Address Validation**:
+   - The script verifies the validity of each IP address in the provided file using `ip_file_validity` and `ip_add_validity` modules.
+   - It ensures that only valid and non-conflicting IP addresses are processed.
+
+2. **IP Reachability Check**:
+   - It checks whether each IP address in the list is reachable via ICMP (ping).
+   - If any device is not reachable, the script will exit with a message.
+
+3. **Concurrent SSH Connections**:
+   - The script creates threads for each device to allow concurrent SSH connections. This helps in executing commands on multiple devices simultaneously, improving performance.
+   - It uses the `handle_multiple_devices_thread` module to manage these threads.
+
+4. **SSH Commands Execution**:
+   - After the connectivity and validation checks, the script triggers the `ssh_connection` function to establish SSH sessions and execute predefined commands on each reachable device.
+   
+### How It Works:
+1. **Input Files**:
+   - The script reads a file containing a list of IP addresses (`ip.txt`), a file with device credentials (`credentials.txt`), and a file with commands to be executed (`commands.txt`).
+
+2. **Execution Flow**:
+   - The IP addresses from the input file are validated and checked for reachability.
+   - Threads are created for each reachable IP to perform SSH connections and execute commands concurrently.
+
+
+### Dependencies:
+- `sys`
+- `subprocess`
+- `threading`
+- Custom modules: `ip_file_validity`, `ip_add_validity`, `ip_reachablity`, `ssh_connection`, `handle_multiple_devices_thread`
+
+### Notes:
+- The script expects specific formats for the IP addresses, credentials, and commands in the input files.
+- If an IP address is unreachable, the script will terminate early.
+- The script can be extended or modified for other automation tasks as needed.
+
+
+
+# How to use-----------------------
+   1. run main.py
+   1. then add paths simultaneously  
+       D:\Codes\Network-Automation\rw_conifg_using_ssh\credentials.txt --> inside file root,root (you have to configure ssh ver 2 and use same password for enable and login. )
+       D:\Codes\Network-Automation\rw_conifg_using_ssh\commands.txt    --> the commnds you want to put
+       D:\Codes\Network-Automation\rw_conifg_using_ssh\ip_add_file.txt  --> ip addresses of your remote machine
+   2. check files have entered requred details like pass and username, ip,commands etc. 
+   3. your commands will sent to device via ssh and output will be shown at python prompt. 
+
+
+
