@@ -147,3 +147,21 @@ command_file_valid()
 #### **Key Notes:**
 - **Validation:** The function is critical for avoiding runtime errors by ensuring the presence of a valid file before proceeding.
 - **Error Handling:** If the file is not found, the program exits gracefully with an appropriate error message, prompting the user to correct the issue.
+
+
+
+
+# command_file_valid.py-----------------------
+
+# This Python script validates the path of a command file provided by the user.
+
+# Function
+
+- command_file_valid prompts the user for the path of a command file.
+- It checks if the file exists using os.path.isfile().
+- If the file is valid, it prints a message indicating so and returns the file path.
+- If the file is invalid, it prints an error message and exits the program.
+
+- Note
+
+      The script allows the user to quit by entering 'q' at the prompt.

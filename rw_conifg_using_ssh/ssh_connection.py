@@ -9,7 +9,7 @@ from command_file_valid import command_file_valid #importing function from comma
 
 #Checking username/password file
 #Prompting user for input - USERNAME/PASSWORD FILE
-#cred_file = cred_file_valid()
+cred_file = cred_file_valid()
         
 #Checking commands file
 #Prompting user for input - COMMANDS FILE
@@ -23,16 +23,16 @@ def ssh_connection(ip):
     
     global cred_file
     global cmd_file
-    username = "root"
-    password = "root"
+    #username = "root"
+    #password = "root"
     
     try:
         #opening file in read mode and reading the username and password
-        # with open(cred_file, 'r') as selected_cred_file: #opening file in read mode and creating a file object
-        #     selected_cred_file.seek(0) # moved cursor at the start of file
-        #     username = selected_cred_file.readlines()[0].split(',')[0].rstrip("\n") #reading 1st line from file and then taking the 1st username from it by splitting username and password by ','
-        #     selected_cred_file.seek(0)  #going back to the start of the file
-        #     password = selected_cred_file.readlines()[0].split(',')[1].rstrip("\n") #taking password now and removing \n from the end of the password
+        with open(cred_file, 'r') as selected_cred_file: #opening file in read mode and creating a file object
+            selected_cred_file.seek(0) # moved cursor at the start of file
+            username = selected_cred_file.readlines()[0].split(',')[0].rstrip("\n") #reading 1st line from file and then taking the 1st username from it by splitting username and password by ','
+            selected_cred_file.seek(0)  #going back to the start of the file
+            password = selected_cred_file.readlines()[0].split(',')[1].rstrip("\n") #taking password now and removing \n from the end of the password
 
             #Logging into device using paramiko 
             session = paramiko.SSHClient() #creating ssh object for client side ssh connection 
@@ -63,7 +63,7 @@ def ssh_connection(ip):
             if re.search(b"% Invalid input", router_output): # using regx to sesrch for error in the output
                 print(f"* There was at least one IOS syntax error on device {ip} :(") # if error is found then print this
             else:
-                print(f"\nDONE for device {ip} :)\n") # if no error is found then print this
+                print(f"\ncommands pushed to remote deivce {ip} :)\n") # if no error is found then print this
             print(router_output.decode('utf-8')) # print the output of the last command 
             session.close()
     # except paramiko.AuthenticationException:
@@ -80,4 +80,4 @@ def ssh_connection(ip):
         print(f"An unexpected error occurred: {e}")
     
 #checking if the file is being run directly or being imported
-ssh_connection("192.168.81.170")
+#ssh_connection("192.168.81.171")

@@ -1,5 +1,5 @@
 import sys
-from ip_file_validity import ip_file_valid
+#from ip_file_validity import ip_file_valid
 #ip_add_list = ["192.168.0\n"] test address
 #Checking octets
 def ip_addr_valid(ip_add_list): #we will take list of ip addresses       

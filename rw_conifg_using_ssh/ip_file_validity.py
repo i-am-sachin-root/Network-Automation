@@ -20,3 +20,4 @@ def ip_file_valid():
                return ip_add_list
 
 # test :- file working as intetended 
+ip_file_valid()
