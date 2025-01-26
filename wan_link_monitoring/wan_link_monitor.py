@@ -7,16 +7,26 @@ from ip_file_validity import ip_file_valid # Import the function to check the va
 from ip_add_validity import ip_addr_valid # Import the function to check the validity of the IP addresses
 
 
-WAN_IP = ip_file_valid() # Replace with your WAN IP or public IP address
+# taking the list of ip from file
+ip_list = ip_file_valid() 
+
+# checking the ip is valid or not
+ip_addr_valid(ip_list)
+
+#taking the 1st ip, we can do for multiple ip's from list but we need to create multithreading.
+WAN_IP = ip_list[0].strip()
+
+
+#print(type(WAN_IP))
 # PING_INTERVAL = 5   # Time in seconds between each ping
 RETRY_COUNT = 4      # Number of retries before declaring WAN as down
 
-ip_addr_valid(WAN_IP) # Check the validity of the WAN IP address
+#ip_addr_valid(WAN_IP) # Check the validity of the WAN IP address
 
 def is_wan_link_up(WAN_IP): #this function will check if ip is reachable or not, we'll us only 1 ping 
     """Ping the WAN IP to check if it's reachable."""
-    ping_reply = subprocess.call((f'ping {WAN_IP} -n 2'), stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL,shell=True) # using subpreocess to interact with the system shell
-    return ping_reply == 0 # if ping is successful then return 0, if not then return 1q
+    ping_reply = subprocess.call((f'ping {WAN_IP} -n 1'), stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL,shell=True) # using subpreocess to interact with the system shell
+    return ping_reply # if ping is successful then return 0, if not then return 1q
 
 
 def monitor_wan(): # creating function to monitor the WAN link
@@ -29,14 +39,14 @@ def monitor_wan(): # creating function to monitor the WAN link
 
         # Retry mechanism
         for i in range(RETRY_COUNT): # loop till retry count
-            if is_wan_link_up(WAN_IP): # if wan ip is reachable
+            if is_wan_link_up(WAN_IP) == 0: # if wan ip is reachable
                 print(f"{WAN_IP} is reachable.") # then print reachable
                 failed_attempts = 0 # reset failes attempts to 0
                 break # if reachable then break the for loop
             else: # if not reachable
                 failed_attempts += 1 # this will increment the fasiled attempts till for loop ends
                 print(f"{WAN_IP} is unreachable. Attempt {i + 1}/{RETRY_COUNT}") # 1/4 tries, i+1 because i starts from 0
-                time.sleep(1)
+                time.sleep(10)
 
         # Send email if WAN is down
         if failed_attempts == RETRY_COUNT:

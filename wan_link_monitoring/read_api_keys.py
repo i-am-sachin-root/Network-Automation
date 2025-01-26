@@ -3,7 +3,8 @@ import os
 
 def read_api_keys():
     """Read the API keys from a file."""
-     
+
+    # note:- DO not add your credentials directly in any file and repo, keep it safe.  
     api_file = "D:\\API cred do not shared\\apicred.txt"
 
     # Check for quit option
