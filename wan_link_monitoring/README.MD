@@ -118,25 +118,38 @@ This text file contains the IP addresses to be monitored by the WAN link monitor
 
 ## How to Use
 
-1. **Prepare the Files**:
- - Make sure the `ip_add_file.txt` contains a list of valid IP addresses you want to monitor.
- - Add your Mailjet API credentials (API Key, API Secret) and email addresses (From, To) in the `apicred.txt` file.
- 
-2. **Run the Main Script**:
- - Run the `wan_link_monitor.py` script. It will:
-   - Read the list of IP addresses from the file (`ip_add_file.txt`).
-   - Validate each IP address.
-   - Continuously monitor the WAN link status.
-   - Send email notifications when the WAN link goes down or comes back up.
+### 1. Prepare the Files:
 
-3. **Dependencies**:
- - Make sure you have the necessary dependencies installed, such as `requests` for sending emails via Mailjet:
-   ```
-   pip install requests
-   ```
+#### Create the `apicred.txt` File:
+- In the `D:\xyz\apicred.txt` file, add your Mailjet credentials and email addresses in the following format:
+    ```
+    MAILJET_API_KEY = 'your_api_key'
+    MAILJET_API_SECRET = 'your_api_secret'
+    FROM_EMAIL = 'from_mail_id'
+    TO_EMAIL = 'to_mail_id'
+    ```
+    Replace the placeholder values (`'your_api_key'`, `'your_api_secret'`, `'from_mail_id'`, `'to_mail_id'`) with your actual credentials and email addresses.
 
-4. **Customizing**:
- - You can change the `RETRY_COUNT` and the sleep intervals in `wan_link_monitor.py` to suit your needs.
- - Modify the email message and subject in `mail_alert.py` as needed.
+#### Create the `ip_add_file.txt`:
+- Ensure this file contains a list of valid IP addresses you want to monitor. For example:
+    ```txt
+    8.8.8.8
+    192.168.1.1
+    ```
 
----
+### 2. Run the Main Script:
+Run the `wan_link_monitor.py` script. It will:
+- Read the list of IP addresses from the `ip_add_file.txt`.
+- Validate each IP address.
+- Continuously monitor the WAN link status.
+- Send email notifications when the WAN link goes down or comes back up.
+
+### 3. Dependencies:
+Make sure you have the necessary dependencies installed, such as `requests` for sending emails via Mailjet:
+    ```bash
+    pip install requests
+    ```
+
+### 4. Customizing:
+- You can change the `RETRY_COUNT` and the sleep intervals in `wan_link_monitor.py` to suit your needs.
+- Modify the email message and subject in `mail_alert.py` as needed.

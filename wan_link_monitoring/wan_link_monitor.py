@@ -71,7 +71,7 @@ def monitor_wan(): # creating function to monitor the WAN link
 # checking if this file is main file or imported
 if __name__ == "__main__": # if run directly then name set to main, if impoted then name is set to file name wan_link_monitor, checking file is main or imported
     try:
-        print("starting WAN link monitoring...")
+        print("starting WAN link monitoring...use ctl + c to stop")
         monitor_wan() # calling monitor_wan function
     except KeyboardInterrupt: # if user press ctrl+c then this block will execute
         print("Monitoring stopped.")
