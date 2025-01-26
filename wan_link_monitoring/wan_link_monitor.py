@@ -46,24 +46,49 @@ RETRY_COUNT = 4      # Number of retries before declaring WAN as down
 #     return result.returncode  # Returns 0 if successful, non-zero if failed
 
 # modified ping function 
+import subprocess
+
 def is_wan_link_up(WAN_IP):
-    """Ping the WAN IP to check if it's reachable and no errors occur."""
+    """Ping the WAN IP to check if it's reachable and display both stdout and stderr."""
     try:
         # Run the ping command and capture the output and error
-        ping_reply = subprocess.call(f'ping {WAN_IP} -n 1', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-        
-        # Capture any error output
-        error_output = subprocess.PIPE
+        process = subprocess.Popen(
+            f'ping {WAN_IP} -n 1', 
+            stdout=subprocess.PIPE, 
+            stderr=subprocess.PIPE, 
+            shell=True
+        )
 
-        # Check if the return code is 0 (indicating success) and there's no error
-        if ping_reply == 0 and error_output is None:
+        # Read the output and error from the process
+        stdout, stderr = process.communicate()
+
+        # Decode the byte output to strings for readability
+        stdout = stdout.decode('utf-8')
+        stderr = stderr.decode('utf-8')
+
+        # Print or log stdout and stderr separately
+        # print("Standard Output (stdout):")
+        # print(stdout)  # Display the output of the ping command
+
+        # print("Standard Error (stderr):")
+        # print(stderr)  # Display any error messages
+
+        # If the return code is 0 and no error phrase is found in stdout
+        if process.returncode == 0 and "Destination host unreachable" not in stdout:
+            # print(f"{WAN_IP} is reachable.")
             return 0  # Link is up, return 0
         else:
-            return 1  # Link is down or error occurred, return 1
+            # Check if the error message is in stdout (because Windows ping puts errors in stdout)
+            if "Destination host unreachable" in stdout or "Request Timed Out" in stdout:
+                # print(f"{WAN_IP} is unreachable. Error detected in output.")
+                return 1
+            else:
+                # print(f"An unexpected error occurred. Error details: {stderr}")
+                return 1  # Link is down or error occurred, return 1
 
     except Exception as e:
         # Handle any other errors in the ping process
-        print(f"Error while trying to ping {WAN_IP}: {e}")
+        # print(f"Error while trying to ping {WAN_IP}: {e}")
         return 1  # Return 1 if any error occurs
 
 
