@@ -92,45 +92,83 @@ def is_wan_link_up(WAN_IP):
         return 1  # Return 1 if any error occurs
 
 
+# monitoring function with live reachable and unreachable repsentation
 
-def monitor_wan(): # creating function to monitor the WAN link
-    """Monitor the WAN link and send an email if it goes down."""
-    print(f"Monitoring WAN link: {WAN_IP}")
-    link_status = None #storing status outside of while loop so the stored value does not reset on each while loop
-    while True:
+# def monitor_wan(): # creating function to monitor the WAN link
+#     """Monitor the WAN link and send an email if it goes down."""
+#     print(f"Monitoring WAN link: {WAN_IP}")
+#     link_status = None #storing status outside of while loop so the stored value does not reset on each while loop
+#     while True:
         
-        failed_attempts = 0
+#         failed_attempts = 0
 
-        # Retry mechanism
-        for i in range(RETRY_COUNT): # loop till retry count
-            if is_wan_link_up(WAN_IP) == 0: # if wan ip is reachable
-                print(f"{WAN_IP} is reachable.") # then print reachable
-                failed_attempts = 0 # reset failes attempts to 0
-                break # if reachable then break the for loop
-            else: # if not reachable
-                failed_attempts += 1 # this will increment the fasiled attempts till for loop ends
-                print(f"{WAN_IP} is unreachable. Attempt {i + 1}/{RETRY_COUNT}") # 1/4 tries, i+1 because i starts from 0
-                time.sleep(10)
+#         # Retry mechanism
+#         for i in range(RETRY_COUNT): # loop till retry count
+#             if is_wan_link_up(WAN_IP) == 0: # if wan ip is reachable
+#                 print(f"{WAN_IP} is reachable.") # then print reachable
+#                 failed_attempts = 0 # reset failes attempts to 0
+#                 break # if reachable then break the for loop
+#             else: # if not reachable
+#                 failed_attempts += 1 # this will increment the fasiled attempts till for loop ends
+#                 print(f"{WAN_IP} is unreachable. Attempt {i + 1}/{RETRY_COUNT}") # 1/4 tries, i+1 because i starts from 0
+#                 time.sleep(10)
 
-        # Send email if WAN is down
-        if failed_attempts == RETRY_COUNT:
-            if link_status != "down":  # If the link was not already marked as down
-                print(f"WAN link {WAN_IP} is down. Sending email notification.")
-                send_email(subject="WAN Link Down Alert", message=f"The WAN link to {WAN_IP} is down. Please check the connectivity.")  # Send "link down" email
-                link_status = "down"  # Update the status to "down"
+#         # Send email if WAN is down
+#         if failed_attempts == RETRY_COUNT:
+#             if link_status != "down":  # If the link was not already marked as down
+#                 print(f"WAN link {WAN_IP} is down. Sending email notification.")
+#                 send_email(subject="WAN Link Down Alert", message=f"The WAN link to {WAN_IP} is down. Please check the connectivity.")  # Send "link down" email
+#                 link_status = "down"  # Update the status to "down"
 
-        # If WAN is up
-        if failed_attempts < RETRY_COUNT:
-            if link_status != "up":  # If the link was not already marked as up
-                print(f"WAN link {WAN_IP} is back up. Sending email notification.")
-                send_email(subject="WAN Link Up Alert", message=f"The WAN link to {WAN_IP} is back up and running.")  # Send "link up" email
-                link_status = "up"  # Update the status to "up"
+#         # If WAN is up
+#         if failed_attempts < RETRY_COUNT:
+#             if link_status != "up":  # If the link was not already marked as up
+#                 print(f"WAN link {WAN_IP} is back up. Sending email notification.")
+#                 send_email(subject="WAN Link Up Alert", message=f"The WAN link to {WAN_IP} is back up and running.")  # Send "link up" email
+#                 link_status = "up"  # Update the status to "up"
         
-        time.sleep(5) # run while loop every 10 seconds
-        
+#         time.sleep(5) # run while loop every 10 seconds
+
+
+
         #break # break the loop after 1 iteration
         # print("Email sent. Stopping the monitoring.")
         # break  # Exit the loop after sending the email
+
+
+
+#monitoring function with reduced prints  
+def monitor_wan():  # creating function to monitor the WAN link
+    """Monitor the WAN link and send an email if it goes down."""
+    print(f"Monitoring WAN link: {WAN_IP}")
+    link_status = None  # storing status outside of while loop so the stored value does not reset on each while loop
+    
+    while True:
+        failed_attempts = 0
+
+        # Retry mechanism
+        for i in range(RETRY_COUNT):  # loop till retry count
+            if is_wan_link_up(WAN_IP) == 0:  # if WAN IP is reachable
+                # Only print if the status has changed to reachable
+                if link_status != "up":
+                    print(f"{WAN_IP} is reachable.")
+                    send_email(subject="WAN Link Up Alert", message=f"The WAN link to {WAN_IP} is back up and running.")  # Send "link up" email
+                    link_status = "up"  # Update the status to "up"
+                failed_attempts = 0  # reset failed attempts to 0
+                break  # if reachable, then break the for loop
+            else:  # if not reachable
+                failed_attempts += 1  # increment failed attempts
+                time.sleep(10)  # wait for 10 seconds before retrying
+
+        # Send email and print if WAN is down
+        if failed_attempts == RETRY_COUNT:
+            if link_status != "down":  # If the link was not already marked as down
+                print(f"{WAN_IP} is unreachable.")
+                send_email(subject="WAN Link Down Alert", message=f"The WAN link to {WAN_IP} is down. Please check the connectivity.")  # Send "link down" email
+                link_status = "down"  # Update the status to "down"
+
+        time.sleep(5)  # run while loop every 5 seconds
+
 
 # checking if this file is main file or imported
 if __name__ == "__main__": # if run directly then name set to main, if impoted then name is set to file name wan_link_monitor, checking file is main or imported

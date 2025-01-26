@@ -25,7 +25,13 @@ def send_email(subject, message):
     try:
         response = requests.post(url, auth=(MAILJET_API_KEY, MAILJET_API_SECRET), json=data)
         if response.status_code == 200:
-            print("Email sent successfully.")
+            # Modify the success message to include whether it's a link down or up email
+            if "wan link down alert" in subject.lower():
+                print("Email sent for link down successfully.")
+            elif "wan link up alert" in subject.lower():
+                print("Email sent for link up successfully.")
+            else:
+                print("Email sent successfully.")
         else:
             print(f"Failed to send email. Status code: {response.status_code}, Response: {response.text}")
     except Exception as e:
