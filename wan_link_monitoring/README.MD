@@ -107,4 +107,36 @@ This text file contains the IP addresses to be monitored by the WAN link monitor
 
 #### Content:
 - The file should contain one IP address per line.
-- Example content:
+- Example content: 8.8.8.8
+
+#### How It Works:
+- This file is read by the `ip_file_validity.py` file.
+- The list of IP addresses is passed to the `wan_link_monitor.py` file to be monitored for connectivity.
+- If the file contains any invalid IP addresses, the program will exit and show an error.
+
+---
+
+## How to Use
+
+1. **Prepare the Files**:
+ - Make sure the `ip_add_file.txt` contains a list of valid IP addresses you want to monitor.
+ - Add your Mailjet API credentials (API Key, API Secret) and email addresses (From, To) in the `apicred.txt` file.
+ 
+2. **Run the Main Script**:
+ - Run the `wan_link_monitor.py` script. It will:
+   - Read the list of IP addresses from the file (`ip_add_file.txt`).
+   - Validate each IP address.
+   - Continuously monitor the WAN link status.
+   - Send email notifications when the WAN link goes down or comes back up.
+
+3. **Dependencies**:
+ - Make sure you have the necessary dependencies installed, such as `requests` for sending emails via Mailjet:
+   ```
+   pip install requests
+   ```
+
+4. **Customizing**:
+ - You can change the `RETRY_COUNT` and the sleep intervals in `wan_link_monitor.py` to suit your needs.
+ - Modify the email message and subject in `mail_alert.py` as needed.
+
+---
