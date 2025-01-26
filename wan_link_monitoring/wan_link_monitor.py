@@ -23,10 +23,49 @@ RETRY_COUNT = 4      # Number of retries before declaring WAN as down
 
 #ip_addr_valid(WAN_IP) # Check the validity of the WAN IP address
 
-def is_wan_link_up(WAN_IP): #this function will check if ip is reachable or not, we'll us only 1 ping 
-    """Ping the WAN IP to check if it's reachable."""
-    ping_reply = subprocess.call((f'ping {WAN_IP} -n 1'), stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL,shell=True) # using subpreocess to interact with the system shell
-    return ping_reply # if ping is successful then return 0, if not then return 1q
+# def is_wan_link_up(WAN_IP): #this function will check if ip is reachable or not, we'll us only 1 ping 
+#     """Ping the WAN IP to check if it's reachable."""
+#     ping_reply = subprocess.call((f'ping {WAN_IP} -n 1'), stdout = subprocess.DEVNULL, stderr = subprocess.DEVNULL,shell=True) # using subpreocess to interact with the system shell
+#     return ping_reply # if ping is successful then return 0, if not then return 1q
+
+# debugging ping function
+# def is_wan_link_up(WAN_IP):
+#     """Ping the WAN IP to check if it's reachable."""
+#     ping_reply = subprocess.call(f'ping {WAN_IP} -n 2', stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
+#     print(f"ping_reply for {WAN_IP}: {ping_reply}")  # Debugging print to check the ping reply value
+#     return ping_reply  # If ping is successful, it should return 0, otherwise a non-zero value
+
+
+# # deep debugging for ping 
+# def is_wan_link_up(WAN_IP):
+#     """Ping the WAN IP to check if it's reachable."""
+#     result = subprocess.run(f'ping {WAN_IP} -n 1', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+#     print(f"ping_reply for {WAN_IP}: {result.returncode}")  # Debugging print to check the return code
+#     print(f"Ping output: {result.stdout.decode()}")  # Print the actual ping response
+#     print(f"Error output: {result.stderr.decode()}")  # Print any error messages
+#     return result.returncode  # Returns 0 if successful, non-zero if failed
+
+# modified ping function 
+def is_wan_link_up(WAN_IP):
+    """Ping the WAN IP to check if it's reachable and no errors occur."""
+    try:
+        # Run the ping command and capture the output and error
+        ping_reply = subprocess.call(f'ping {WAN_IP} -n 1', stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+        
+        # Capture any error output
+        error_output = subprocess.PIPE
+
+        # Check if the return code is 0 (indicating success) and there's no error
+        if ping_reply == 0 and error_output is None:
+            return 0  # Link is up, return 0
+        else:
+            return 1  # Link is down or error occurred, return 1
+
+    except Exception as e:
+        # Handle any other errors in the ping process
+        print(f"Error while trying to ping {WAN_IP}: {e}")
+        return 1  # Return 1 if any error occurs
+
 
 
 def monitor_wan(): # creating function to monitor the WAN link

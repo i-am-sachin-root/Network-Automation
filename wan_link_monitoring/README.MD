@@ -122,7 +122,7 @@ This text file contains the IP addresses to be monitored by the WAN link monitor
 
 #### Create the `apicred.txt` File:
 - In the `D:\xyz\apicred.txt` file, add your Mailjet credentials and email addresses in the following format:
-    ```
+    ``txt
     MAILJET_API_KEY = 'your_api_key'
     MAILJET_API_SECRET = 'your_api_secret'
     FROM_EMAIL = 'from_mail_id'
@@ -134,7 +134,7 @@ This text file contains the IP addresses to be monitored by the WAN link monitor
 - Ensure this file contains a list of valid IP addresses you want to monitor. For example:
     ```txt
     8.8.8.8
-    192.168.1.1
+   
     ```
 
 ### 2. Run the Main Script:
